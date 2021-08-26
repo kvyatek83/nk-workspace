@@ -1,6 +1,31 @@
 {
   "version": 1,
   "projects": {
+    "angular-authentication": {
+      "projectType": "library",
+      "root": "libs/angular/authentication",
+      "sourceRoot": "libs/angular/authentication/src",
+      "prefix": "nk",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/angular/authentication"],
+          "options": {
+            "jestConfig": "libs/angular/authentication/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/angular/authentication/src/**/*.ts",
+              "libs/angular/authentication/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "sand-box": {
       "projectType": "application",
       "root": "apps/sand-box",
