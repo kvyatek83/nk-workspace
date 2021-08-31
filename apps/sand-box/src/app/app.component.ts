@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '@nk-workspace/angular/authentication';
 
 @Component({
   selector: 'nk-workspace-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sand-box';
+
+  constructor(private authenticationService: AuthenticationService) {}
 }

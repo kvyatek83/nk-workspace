@@ -1,13 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+
+export const AUTHENTICATION_OPTIONS = new InjectionToken<AuthenticationOptions>('AuthenticationOptions');
+
+export interface AuthenticationOptions {
+   api: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) {
+  constructor(@Inject(AUTHENTICATION_OPTIONS) private authOptions: AuthenticationOptions, private http: HttpClient) {
+    console.log(authOptions);
+    
   }
 
   login(email: string, password: string ): Observable<any> {
