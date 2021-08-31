@@ -18,7 +18,8 @@
     "paths": {
       "@nk-workspace/angular/authentication": [
         "libs/angular/authentication/src/index.ts"
-      ]
+      ],
+      "@nk-workspace/angular/material": ["libs/angular/material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
