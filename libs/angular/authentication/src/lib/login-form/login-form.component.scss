@@ -1,0 +1,80 @@
+.form-content {
+    width: fit-content;
+    padding: 20px;
+    background-color: var(--accent);
+}
+
+.form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field {
+    position: relative;
+}
+
+.info-btn {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    color: #131010;
+}
+
+input {
+    width: 350px;
+    height: 50px;
+    padding: 10px;
+    margin: 10px auto;
+    outline: 0;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+::placeholder {
+    color: #131010;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #000;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.submit {
+    margin-top: 15px;
+    height: 50px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    white-space: nowrap;
+
+    .remember-me {
+        display: inline-flex;
+    }
+    .forgot-password {
+        display: inline-flex;
+        margin: 0 0 0 5px;
+        color: var(--primary);
+    }
+}
+
+.alternative {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    font-size: 14px;
+
+    .sign-up {
+        padding: 0 5px;
+        color: var(--primary);
+    }
+}
