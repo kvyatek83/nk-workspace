@@ -6,10 +6,13 @@ import { AppComponent } from './app.component';
 import { AppConfig } from './app-config';
 import { AngularAuthenticationModule, AUTHENTICATION_OPTIONS } from '@nk-workspace/angular/authentication';
 import { AngularMaterialModule } from '@nk-workspace/angular/material';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, AngularMaterialModule, AngularAuthenticationModule],
+  declarations: [AppComponent, HomeComponent, LoginComponent],
+  imports: [BrowserModule, HttpClientModule, AngularMaterialModule, AngularAuthenticationModule, AppRoutingModule],
   providers: [{
     provide: APP_INITIALIZER,
     useFactory: (appConfig: AppConfig) => async () => {

@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '@nk-workspace/angular/authentication';
+import { Router } from '@angular/router';
+import {
+  AuthenticationService,
+  Role,
+  User,
+} from '@nk-workspace/angular/authentication';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'nk-workspace-root',
@@ -7,7 +13,18 @@ import { AuthenticationService } from '@nk-workspace/angular/authentication';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'sand-box';
+  readonly ADMIN = Role.Admin;
+  user$ = new BehaviorSubject<User>(null);
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser$.subscribe(this.user$);
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
 }

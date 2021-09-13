@@ -16,6 +16,13 @@ export class AppConfig {
     }
 
     loadConfig(): Promise<void> {
+        // const a = new BroadcastChannel('tab');
+        // a.postMessage('athother-tab');
+        // a.addEventListener('message', (msg) => {
+        //     console.log(msg);
+        //     window.close();
+            
+        // })
         return new Promise<void>((resolve, reject) => {
             this.http.get<Config>('/assets/environments/environment.json').subscribe(config => {
                 this._config = config;
