@@ -1,45 +1,67 @@
 <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+  <div class="form">
+    <h2>Sign In</h2>
 
     <mat-form-field appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      </mat-form-field>
-    <div class="form">
-        <h2>Sign In</h2>
+      <mat-label>Enter your Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+    <div *ngIf="email.errors && email.touched">email errors</div>
 
-        <input type="text" id="email" formControlName="email" placeholder="Enter your Email">
-        <div *ngIf="email.errors && email.dirty">
-            email errors
-        </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="hidePassword ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? 'visibility_off' : 'visibility'
+        }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div *ngIf="password.errors && password.touched">password errors</div>
 
-        <div class="form-field">
-            <input type="password" id="password" formControlName="password" placeholder="Enter your Password"
-                autocomplete="off">
-            <button type="button" class="info-btn" mat-button matSuffix mat-icon-button matTooltip="Password">
-                <i class="fas fa-info"></i>
-            </button>
-            <div *ngIf="password.errors && password.dirty">
-                password errors
-            </div>
-        </div>
 
-        <!-- <div class="options">
+    <button
+      mat-raised-button
+      class="submit"
+      color="primary"
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Sign In Now
+    </button>
+  </div>
+
+  <div class="form">
+
+
+
+    <div class="form-field">
+
+    </div>
+
+    <!-- <div class="options">
             <mat-checkbox class="remember-me">Remember me
             </mat-checkbox>
             <a class="forgot-password" [routerLink]="['/user-id/reset-password']">Forgot Your Password</a>
         </div> -->
 
-        <button mat-raised-button class="submit" color="primary" type="submit" [disabled]="loginForm.invalid">
-            Sign In Now
-        </button>
+    
 
 
-        <a>Privacy Policy</a>
-
-        <!-- <div class="alternative">
+    <!-- <div class="alternative">
             <p>You don't have a TQ account?</p>
             <a class="sign-up" [routerLink]="['/user-id/register']">Sign Up</a>
         </div> -->
-    </div>
+  </div>
 </form>

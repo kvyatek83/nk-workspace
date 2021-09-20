@@ -30,6 +30,8 @@ import {
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
+  hidePassword = true;
+
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
