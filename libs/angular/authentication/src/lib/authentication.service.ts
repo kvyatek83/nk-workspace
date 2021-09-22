@@ -30,6 +30,8 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthenticationService {
+  authOptions: AuthenticationOptions;
+
   private _currentUser$ = new BehaviorSubject<User>(
     JSON.parse(localStorage.getItem('currentUser') as string)
   );
@@ -62,10 +64,11 @@ export class AuthenticationService {
   }
 
   constructor(
-    @Inject(AUTHENTICATION_OPTIONS) private authOptions: AuthenticationOptions,
+    @Inject(AUTHENTICATION_OPTIONS) private authenticationOptions: AuthenticationOptions,
     private http: HttpClient
   ) {
-    console.log(authOptions);
+    this.authOptions = authenticationOptions
+    console.log(authenticationOptions);
   }
 
   // login(email: string, password: string): Observable<User> {
