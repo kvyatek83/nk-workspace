@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {
   AuthenticationService,
   Role,
-  User,
+  UserProfile,
 } from '@nk-workspace/angular/authentication';
 import { BehaviorSubject } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent {
   readonly ADMIN = Role.Admin;
-  user$ = new BehaviorSubject<User>(null);
+  user$ = new BehaviorSubject<UserProfile>(null);
 
   constructor(
     private router: Router,

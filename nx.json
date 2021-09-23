@@ -42,6 +42,9 @@
     },
     "sand-box-server": {
       "tags": []
+    },
+    "utils-angular-utils": {
+      "tags": []
     }
   }
 }

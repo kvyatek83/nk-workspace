@@ -21,7 +21,10 @@
       "@nk-workspace/angular/authentication": [
         "libs/angular/authentication/src/index.ts"
       ],
-      "@nk-workspace/angular/material": ["libs/angular/material/src/index.ts"]
+      "@nk-workspace/angular/material": ["libs/angular/material/src/index.ts"],
+      "@nk-workspace/utils/angular-utils": [
+        "libs/utils/angular-utils/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

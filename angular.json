@@ -222,6 +222,31 @@
           }
         }
       }
+    },
+    "utils-angular-utils": {
+      "projectType": "library",
+      "root": "libs/utils/angular-utils",
+      "sourceRoot": "libs/utils/angular-utils/src",
+      "prefix": "nk",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/utils/angular-utils"],
+          "options": {
+            "jestConfig": "libs/utils/angular-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/utils/angular-utils/src/**/*.ts",
+              "libs/utils/angular-utils/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

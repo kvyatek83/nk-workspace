@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { LocalStorageBehaviorSubject } from '@nk-workspace/utils/angular-utils';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export const AUTHENTICATION_OPTIONS = new InjectionToken<AuthenticationOptions>(
@@ -16,14 +17,29 @@ export enum Role {
   Admin = 'Admin',
 }
 
-export interface User {
+export interface UserProfile {
   id: number;
   username: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
+  role: Role;
+  token?: string;
+}
+
+export interface LoginUser {
+  username: string;
+  password: string;
+}
+
+export interface RegisterUser {
+  username: string;
+  email: string;
+  password: string;
+  repassword: string;
   firstName: string;
   lastName: string;
   role: Role;
-  token?: string;
 }
 
 @Injectable({
@@ -32,11 +48,16 @@ export interface User {
 export class AuthenticationService {
   authOptions: AuthenticationOptions;
 
-  private _currentUser$ = new BehaviorSubject<User>(
-    JSON.parse(localStorage.getItem('currentUser') as string)
+  private _currentUser$ = new LocalStorageBehaviorSubject<UserProfile>(
+    'user-profile',
+    null
   );
 
-  users: User[] = [
+  // private _currentUser$ = new BehaviorSubject<User>(
+  //   JSON.parse(localStorage.getItem('currentUser') as string)
+  // );
+
+  users: UserProfile[] = [
     {
       id: 1,
       username: 'admin',
@@ -55,29 +76,26 @@ export class AuthenticationService {
     },
   ];
 
-  get currentUser$(): Observable<User> {
+  get currentUser$(): Observable<UserProfile> {
     return this._currentUser$.asObservable();
   }
 
-  get currentUserValue(): User {
+  get currentUserValue(): UserProfile {
     return this._currentUser$.value;
   }
 
   constructor(
-    @Inject(AUTHENTICATION_OPTIONS) private authenticationOptions: AuthenticationOptions,
+    @Inject(AUTHENTICATION_OPTIONS)
+    private authenticationOptions: AuthenticationOptions,
     private http: HttpClient
   ) {
-    this.authOptions = authenticationOptions
+    this.authOptions = authenticationOptions;
     console.log(authenticationOptions);
   }
 
-  // login(email: string, password: string): Observable<User> {
-  //   return this.http.post<User>('/api/login', { email, password });
-  // }
-
-  login(username: string, password: string): Observable<User> {
+  login(username: string, password: string): Observable<UserProfile> {
     return this.http
-      .post<User>(`${this.authOptions.api}/users/authenticate`, {
+      .post<UserProfile>(`${this.authOptions.api}/users/authenticate`, {
         username,
         password,
       })
@@ -86,7 +104,7 @@ export class AuthenticationService {
           // login successful if there's a jwt token in the response
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            // localStorage.setItem('currentUser', JSON.stringify(user));
             this._currentUser$.next(user);
           }
 
@@ -97,33 +115,7 @@ export class AuthenticationService {
 
   logout(): void {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    // localStorage.removeItem('currentUser');
     this._currentUser$.next(null);
   }
-
-  // private setSession(authResult) {
-  //     const expiresAt = moment().add(authResult.expiresIn,'second');
-
-  //     localStorage.setItem('id_token', authResult.idToken);
-  //     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-  // }
-
-  // logout() {
-  //     localStorage.removeItem("id_token");
-  //     localStorage.removeItem("expires_at");
-  // }
-
-  // public isLoggedIn() {
-  //     return moment().isBefore(this.getExpiration());
-  // }
-
-  // isLoggedOut() {
-  //     return !this.isLoggedIn();
-  // }
-
-  // getExpiration() {
-  //     const expiration = localStorage.getItem("expires_at");
-  //     const expiresAt = JSON.parse(expiration);
-  //     return moment(expiresAt);
-  // }
 }
