@@ -39,6 +39,9 @@
     "sand-box-e2e": {
       "tags": [],
       "implicitDependencies": ["sand-box"]
+    },
+    "sand-box-server": {
+      "tags": []
     }
   }
 }
